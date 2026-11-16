@@ -14,9 +14,9 @@ npm run build
 npm run zip
 ```
 
-Load `.output/chrome-mv3` using Chrome’s Load unpacked command. The ZIP in `.output` is the store package. `npm run e2e` requires desktop Chrome, with the macOS executable path used by default. Set `CHROME` for another installation.
+Load `.output/chrome-mv3` using Chrome’s Load unpacked command. The ZIP in `.output` is the store package.
 
-The `v0.9.0` tag identifies the source for the Chrome Web Store release. Runtime code is in `entrypoints`, `utils` and `public`. Website source and the store descriptions and screenshot sources are also included.
+The `v0.9.0` tag identifies the source for the Chrome Web Store release. Runtime code is in `entrypoints`, `utils` and `public`. The repository includes build configuration, unit tests, icon sources and third-party source archives.
 
 ## Licensing and corresponding source
 

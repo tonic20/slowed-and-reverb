@@ -3,7 +3,7 @@ export default defineConfig({
   imports: false,
   manifestVersion: 3,
   dev: { server: { host: '127.0.0.1', origin: '127.0.0.1' } },
-  zip: { excludeSources: ['docs/**', 'tests/**', 'site/**'] },
+  zip: { excludeSources: ['tests/**'] },
   manifest: {
     name: '__MSG_appName__',
     description: '__MSG_shortDesc__',
