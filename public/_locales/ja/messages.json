@@ -1,0 +1,8 @@
+{
+  "appName": {
+    "message": "Slowed and Reverb"
+  },
+  "shortDesc": {
+    "message": "音楽の再生速度を変えて、Slowed and Reverbのミックスを作成。曲のテンポを落としても、ボーカルの音程は元のままにできます。手元の音源にリバーブをかけて、仕上がりをWAVファイルに書き出せます。"
+  }
+}

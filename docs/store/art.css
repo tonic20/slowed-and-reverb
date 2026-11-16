@@ -1,0 +1,11 @@
+@font-face{font-family:Onest;src:url('../../public/fonts/onest.woff2')}*{box-sizing:border-box}
+body{margin:0;overflow:hidden;width:100vw;height:100vh;font:24px Onest,Arial,sans-serif;background:#ecd6bf;color:#291e2b}
+main{position:relative;isolation:isolate;width:100%;height:100%;overflow:hidden;background:linear-gradient(125deg,#f9e9d6,#eabfa7 70%,#cd9292)}
+.disc{position:absolute;z-index:-1;width:980px;aspect-ratio:1;border-radius:100%;right:-370px;top:-95px;background:radial-gradient(circle,transparent 0 5%,#cb9092 5.2% 18%,transparent 18.3%),repeating-radial-gradient(circle,#372c37 0 2px,#4e3e49 3px,#2b252e 5px)}
+header{position:absolute;inset:54px auto auto 62px;display:flex;align-items:center;gap:14px;font-size:25px;font-weight:650}header img{width:43px}
+.copy{position:absolute;top:240px;left:64px;width:470px}h1{margin:0;font-size:88px;letter-spacing:-.065em;line-height:.99;font-weight:700;text-wrap:balance}
+p{font-size:27px;line-height:1.4;max-width:410px;margin:28px 0 0;color:#493747}
+.screen{position:absolute;width:459px;right:86px;top:105px;border-radius:19px;border:5px solid #463344;box-shadow:0 26px 50px #17101a55;background:#211b23}
+.detail .screen{width:594px;right:48px;top:50%;transform:translateY(-50%);border-width:9px}.detail .copy{width:490px;top:245px}.detail h1{font-size:77px}
+.plum main{background:linear-gradient(110deg,#382637,#53344c 63%,#8e5264);color:#ffead5}.plum p{color:#e4c7d5}.plum .disc{opacity:.6}
+.tile header{top:27px;left:28px}.tile header img{width:44px}.tile h1{position:absolute;left:28px;bottom:30px;width:260px;font-size:47px}.tile .disc{width:390px;right:-205px;top:-50px}

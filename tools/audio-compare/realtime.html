@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Live DSP comparison — slowed &amp; reverb</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="realtime.css" />
+    <script src="/vendor/signalsmith/SignalsmithStretch.js"></script>
+    <script type="module" src="realtime.js"></script>
+  </head>
+  <body>
+    <main>
+      <header><a href="/compare/">slowed &amp; reverb</a><a href="/compare/">Rendered comparison</a></header>
+      <section class="intro">
+        <h1>Listen live.</h1>
+        <p>One engine at a time, processing the track as it plays. Original pitch preserved, reverb off.</p>
+      </section>
+      <section class="source-panel">
+        <span class="label">Your track</span>
+        <h2 id="track-name">Loading local audio…</h2>
+        <div class="settings">
+          <label
+            >Engine<select id="engine">
+              <option value="signalsmith">Signalsmith · corrected</option>
+              <option value="rubberband">Rubber Band R3 · Finer</option>
+              <option value="rubberband-short">Rubber Band R3 · short window</option>
+              <option value="native">Native · CPU baseline</option>
+            </select></label
+          >
+          <label
+            >Speed<select id="speed">
+              <option value="0.5">0.50×</option>
+              <option value="0.75">0.75×</option>
+              <option value="0.82" selected>0.82×</option>
+              <option value="1.2">1.20×</option>
+            </select></label
+          >
+          <label
+            >Start at<span><input id="start" type="number" min="0" value="30" /> sec</span></label
+          >
+          <button id="play" class="primary" disabled>Play live</button>
+        </div>
+        <div class="live-transport">
+          <label class="volume"
+            >Volume<input id="volume" type="range" min="0" max="0.9" step="0.01" value="0.5" /></label
+          ><span id="position">0:30</span><button id="reset" disabled>Reset measurements</button>
+        </div>
+      </section>
+      <div class="status-row"><p id="status" role="status">Decoding the local track…</p></div>
+      <section class="metrics" aria-label="Live measurements">
+        <article>
+          <span>DSP time / audio budget</span><strong id="work">—</strong><small>Callback wall time, averaged</small>
+        </article>
+        <article>
+          <span>Peak callback</span><strong id="peak">—</strong><small id="budget">128 frames per callback</small>
+        </article>
+        <article>
+          <span>FIFO missing frames</span><strong id="fifo">—</strong><small>Rubber Band buffer starvation</small>
+        </article>
+        <article>
+          <span>Device underruns</span><strong id="device">—</strong><small>Browser playback statistics</small>
+        </article>
+      </section>
+      <dl class="details">
+        <div>
+          <dt>Measured playback</dt>
+          <dd id="seconds">—</dd>
+        </div>
+        <div>
+          <dt>Callbacks over budget</dt>
+          <dd id="over">—</dd>
+        </div>
+        <div>
+          <dt>Silent blocks with active input</dt>
+          <dd id="zeros">—</dd>
+        </div>
+        <div>
+          <dt>Processor / buffer latency</dt>
+          <dd id="latency">—</dd>
+        </div>
+        <div>
+          <dt>Timer</dt>
+          <dd id="timer">—</dd>
+        </div>
+      </dl>
+      <section id="benchmark" hidden>
+        <h2>Recorded benchmark</h2>
+        <p id="benchmark-info"></p>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Engine</th>
+                <th>Speed</th>
+                <th>CPU¹</th>
+                <th>Peak</th>
+                <th>FIFO gaps</th>
+                <th>Device gaps</th>
+              </tr>
+            </thead>
+            <tbody id="benchmark-rows"></tbody>
+          </table>
+        </div>
+        <p class="hint">¹ Combined CPU for the test browser's processes. 100% equals one fully used CPU core.</p>
+      </section>
+      <footer>
+        <p>
+          Switching engines restarts processing at the current track position. Measurements begin after a three-second
+          warm-up.
+        </p>
+        <p>
+          DSP time is measured inside AudioWorklet. Over-budget callbacks indicate deadline risk. Device underruns and
+          FIFO gaps count different failures. Native baseline changes pitch with speed.
+        </p>
+        <p id="limits">
+          This page measures local streaming DSP. Site capture, DRM and other extensions add their own costs.
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

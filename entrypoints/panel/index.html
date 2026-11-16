@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>slowed &amp; reverb</title><link rel="stylesheet" href="./style.css"></head><body>
+<div id="ag-concept"  lang="en" aria-label="Slowed &amp; Reverb controls">
+  <section aria-label="Audio controls">
+    <div class="ag-stage">
+      <div class="ag-product ag-popup" data-screen="popup" aria-label="Audio controls">
+        <header class="ag-header"><div class="ag-brand">slowed &amp; reverb<span class="ag-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span></div><div class="ag-header-actions"><button class="ag-icon ag-settings cursor-interaction" aria-label="Settings" aria-expanded="false" aria-controls="ag-settings-panel" data-tooltip="Settings"><i data-lucide="sliders-horizontal" aria-hidden="true"></i></button><button class="ag-icon ag-reset cursor-interaction" aria-label="Reset all presets" data-tooltip="Reset all presets"><i data-lucide="rotate-ccw" aria-hidden="true"></i></button><button class="ag-icon ag-power cursor-interaction" aria-label="Turn effect off" aria-pressed="true"><i data-lucide="power" aria-hidden="true"></i></button></div></header>
+        <div id="ag-settings-panel" class="ag-settings-panel" hidden>
+          <div class="ag-settings-heading"><h2>Settings</h2><button class="ag-text" data-close-settings>Done</button></div>
+          <label class="ag-setting"><span class="ag-label">Audio engine</span><select data-param="engine"><option value="rubberband">Rubber Band R3</option><option value="signalsmith">Signalsmith · Lower CPU</option></select></label>
+          <p class="ag-help" data-engine-help></p>
+          <label class="ag-setting"><span class="ag-label">Processing quality</span><select data-param="quality"><option value="high">High quality</option><option value="light">Lightweight</option></select></label>
+          <p class="ag-help" data-quality-help></p>
+          <p class="ag-settings-feedback" role="status"></p>
+        </div>
+        <div class="ag-content">
+          <div class="ag-source-mount"></div>
+          <div class="ag-presets" role="group" aria-label="Sound presets"><button class="ag-preset cursor-interaction" data-preset="slow" aria-pressed="true"><i data-lucide="moon" aria-hidden="true"></i><span>Slowed</span></button><button class="ag-preset cursor-interaction" data-preset="dream" aria-pressed="false"><i data-lucide="cloud-moon" aria-hidden="true"></i><span>Dream</span></button><button class="ag-preset cursor-interaction" data-preset="tape" aria-pressed="false"><i data-lucide="cassette-tape" aria-hidden="true"></i><span>Tape</span></button><button class="ag-preset cursor-interaction" data-preset="night" aria-pressed="false"><i data-lucide="zap" aria-hidden="true"></i><span>Nightcore</span></button></div>
+          <div class="ag-speed-area"><div class="ag-row"><label for="ag-pop-speed" class="ag-label">Speed</label><output class="ag-speed-number" data-output="speed">0.82<span>×</span></output></div><input class="ag-range" id="ag-pop-speed" type="range" data-param="speed" min="0.5" max="1.5" step="0.01" value="0.82"><div class="ag-range-labels"><span>0.5×</span><span>1×</span><span>1.5×</span></div></div>
+          <label class="ag-toggle-row"><span><span class="ag-label">Keep original pitch</span><span class="ag-help" data-pitch-help>The voice gets lower as you slow down.</span></span><input type="checkbox" class="ag-switch" data-param="keep" aria-label="Keep original pitch"></label>
+          <div class="ag-rule"></div>
+          <div class="ag-control"><div class="ag-row"><label for="ag-pop-reverb" class="ag-label">Reverb</label><output data-output="wet">32%</output></div><input class="ag-range" id="ag-pop-reverb" type="range" data-param="wet" min="0" max="80" step="1" value="32"></div>
+          <div class="ag-room-strip"><span class="ag-room-glyph"><i data-lucide="orbit" aria-hidden="true"></i></span><div><span class="ag-label" data-room-label>Dark room</span><span class="ag-help">Soft tail · 3.0 s</span></div></div>
+          <div class="ag-compare" role="group" aria-label="Compare original and effect"><button class="cursor-interaction" data-compare="original" aria-pressed="false">Original</button><button class="cursor-interaction" data-compare="effect" aria-pressed="true"><i data-lucide="sparkles" aria-hidden="true"></i> With effect</button></div>
+          <div class="ag-rating" hidden><span>Rate us:</span><div class="ag-rating-stars" role="group" aria-label="Rate slowed and reverb"><button type="button" data-rating="1" aria-label="Rate 1 star"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.78 5.63L21 9.54l-4.5 4.39 1.06 6.2L12 17.2l-5.56 2.93 1.06-6.2L3 9.54l6.22-.91Z"/></svg></button><button type="button" data-rating="2" aria-label="Rate 2 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.78 5.63L21 9.54l-4.5 4.39 1.06 6.2L12 17.2l-5.56 2.93 1.06-6.2L3 9.54l6.22-.91Z"/></svg></button><button type="button" data-rating="3" aria-label="Rate 3 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.78 5.63L21 9.54l-4.5 4.39 1.06 6.2L12 17.2l-5.56 2.93 1.06-6.2L3 9.54l6.22-.91Z"/></svg></button><button type="button" data-rating="4" aria-label="Rate 4 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.78 5.63L21 9.54l-4.5 4.39 1.06 6.2L12 17.2l-5.56 2.93 1.06-6.2L3 9.54l6.22-.91Z"/></svg></button><button type="button" data-rating="5" aria-label="Rate 5 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.78 5.63L21 9.54l-4.5 4.39 1.06 6.2L12 17.2l-5.56 2.93 1.06-6.2L3 9.54l6.22-.91Z"/></svg></button></div></div>
+          <div class="ag-mini-status"><span><span class="ag-tiny-dot"></span><span data-status>Effect on</span></span><span data-mini-quality>High quality</span></div>
+          <div class="ag-feedback" aria-live="polite"></div><button class="ag-retry" data-retry hidden>Retry audio processing</button><p class="ag-demo-credit" hidden>Demo: <a href="https://ccmixter.org/files/snowflake/46164" target="_blank" rel="noopener noreferrer">A Foolish Game</a> · <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">CC BY 3.0</a> · 40 s excerpt, faded.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <input id="ag-local-file" type="file" accept="audio/*,.mp3,.wav,.m4a,.ogg,.flac" hidden>
+  <template id="ag-source-template">
+    <div class="ag-source-picker" role="group" aria-label="Audio source">
+      <button class="cursor-interaction" data-source="browser" aria-pressed="true"><i data-lucide="panels-top-left" aria-hidden="true"></i> Browser tab</button>
+      <button class="cursor-interaction" data-source="file" aria-pressed="false"><i data-lucide="file-audio" aria-hidden="true"></i> Audio file</button>
+    </div>
+    <div class="ag-file-area">
+      <div class="ag-drop">
+        <span class="ag-label">Drop an audio file</span>
+        <div><button class="ag-text ag-choose cursor-interaction">Choose file</button><span class="ag-muted"> or </span><button class="ag-text ag-demo cursor-interaction">Try demo</button></div>
+        <span class="ag-help">MP3, WAV, M4A, OGG, FLAC · Up to 50 MB</span>
+      </div>
+      <div class="ag-file-player" hidden>
+        <div class="ag-file-row"><button class="ag-source-icon ag-file-play cursor-interaction" aria-label="Play audio"><span class="ag-disc" aria-hidden="true"><span></span></span><span class="ag-play-symbol"><i data-lucide="play" aria-hidden="true"></i></span></button><div class="ag-file-description"><div class="ag-file-name"></div><span class="ag-file-meta ag-muted"></span></div><button class="ag-icon ag-choose cursor-interaction" aria-label="Choose another file"><i data-lucide="folder-open" aria-hidden="true"></i></button></div>
+        <input class="ag-range ag-file-seek" type="range" min="0" max="40" step="0.1" value="0" aria-label="Playback position">
+        <div class="ag-file-times"><span data-file-time>0:00</span><span data-file-length>0:00</span></div>
+        <div class="ag-source-actions"><span class="ag-help" data-source-status></span><button class="ag-text cursor-interaction" data-disconnect hidden>Disconnect</button><button class="ag-text cursor-interaction" data-remove hidden>Remove file</button></div>
+      </div>
+      <p class="ag-file-error" role="alert"></p>
+    </div>
+  </template>
+  <template id="ag-download-template">
+    <div class="ag-file-export" hidden>
+      <div class="ag-download-row"><button class="ag-download cursor-interaction"><i data-lucide="download" aria-hidden="true"></i> Download WAV</button><button class="ag-icon ag-export-options cursor-interaction" aria-label="Export options" aria-expanded="false"><i data-lucide="sliders-horizontal" aria-hidden="true"></i></button></div>
+      <div class="ag-export-options-panel" hidden><span class="ag-help">WAV · 16-bit PCM</span><label class="ag-toggle-row"><span class="ag-label">Include reverb tail</span><input class="ag-switch" type="checkbox" data-param="exportTail" checked></label><label class="ag-toggle-row"><span class="ag-label">Prevent clipping</span><input class="ag-switch" type="checkbox" data-param="safe" checked></label></div>
+    </div>
+  </template>
+</div>
+
+<script type="module" src="./main.ts"></script>
+</body></html>

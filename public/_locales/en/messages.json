@@ -1,0 +1,8 @@
+{
+  "appName": {
+    "message": "Slowed and Reverb"
+  },
+  "shortDesc": {
+    "message": "Create a slowed and reverb mix with a music speed changer. Slow down a song, keep its original pitch and export local audio to WAV."
+  }
+}

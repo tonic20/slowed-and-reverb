@@ -1,0 +1,13 @@
+Slowed and Reverb 0.9.0
+Copyright (c) 2026 Anton Kopylov
+
+This program is distributed under the GNU General Public License version 2.
+See LICENSE.txt. Third-party components retain their bundled license notices.
+
+Corresponding source and build instructions for this version:
+https://github.com/tonic20/slowed-and-reverb/tree/v0.9.0
+
+Source archive:
+https://github.com/tonic20/slowed-and-reverb/archive/refs/tags/v0.9.0.zip
+
+Rubber Band library and WASM binding sources are included in vendor-src.

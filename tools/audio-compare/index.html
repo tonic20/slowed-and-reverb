@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Audio comparison — slowed &amp; reverb</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="/vendor/signalsmith/SignalsmithStretch.js"></script>
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <main>
+      <header><a href="/compare/">slowed &amp; reverb</a><a href="realtime.html">Live comparison →</a></header>
+      <section class="intro">
+        <h1>Hear the difference.</h1>
+        <p>Compare the same passage with its original pitch preserved. Reverb is off.</p>
+      </section>
+      <section class="source-panel" aria-label="Source and settings">
+        <div class="track-row">
+          <div>
+            <span class="label">Your track</span>
+            <h2 id="track-name">Loading local audio…</h2>
+          </div>
+          <button id="choose">Change file</button><input id="file" type="file" accept="audio/*" hidden />
+        </div>
+        <div class="settings">
+          <label
+            >Start at <span><input id="start" type="number" value="30" min="0" step="1" /> sec</span></label
+          >
+          <label
+            >Excerpt
+            <select id="duration">
+              <option value="10">10 seconds</option>
+              <option value="20" selected>20 seconds</option>
+              <option value="30">30 seconds</option>
+            </select></label
+          >
+          <label
+            >Speed
+            <select id="speed">
+              <option value="0.5">0.50×</option>
+              <option value="0.75">0.75×</option>
+              <option value="0.82" selected>0.82× · Slowed</option>
+              <option value="0.88">0.88× · Tape</option>
+              <option value="1">1.00×</option>
+              <option value="1.2">1.20× · Nightcore</option>
+            </select></label
+          >
+          <button id="render" class="primary" disabled>Render comparison</button>
+        </div>
+      </section>
+      <div class="status-row">
+        <p id="status" role="status" aria-live="polite">Reading the local file…</p>
+        <label class="match"><input id="match" type="checkbox" checked /> Match loudness (RMS)</label>
+      </div>
+      <section id="variants" aria-label="Engine variants"></section>
+      <section class="player" aria-label="Playback">
+        <div class="transport">
+          <button id="play" class="primary" disabled>Play</button>
+          <div class="now">
+            <span class="label">Listening to</span><strong id="playing-name">Choose a version above</strong>
+          </div>
+          <label class="volume">Volume<input id="volume" type="range" min="0" max="1" step="0.01" value="0.7" /></label>
+        </div>
+        <canvas id="wave" height="82" aria-hidden="true"></canvas>
+        <label class="seek"
+          ><span id="elapsed">0:00</span
+          ><input
+            id="seek"
+            aria-label="Playback position"
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value="0"
+            disabled
+          /><span id="total">0:00</span></label
+        >
+        <p class="hint">
+          Switch versions while playing to keep your place. Space to play or pause, keys 1–5 to switch.
+        </p>
+      </section>
+      <footer>
+        <p>
+          Tab versions simulate the player’s speed change before pitch correction. File versions stretch the original
+          audio directly.
+        </p>
+        <p>
+          Rubber Band 3.3.0 · R3 Finer · WASM. Prepared excerpts compare sound quality; live CPU and underruns need a
+          separate test.
+        </p>
+        <p>
+          Audio stays in this browser.
+          <a href="https://breakfastquay.com/rubberband/" target="_blank" rel="noreferrer">Rubber Band licensing</a>
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

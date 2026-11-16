@@ -1,0 +1,8 @@
+{
+  "appName": {
+    "message": "Slowed and Reverb"
+  },
+  "shortDesc": {
+    "message": "Crea una mezcla slowed and reverb. Baja la velocidad de una canción, conserva el tono y exporta audio local a WAV."
+  }
+}

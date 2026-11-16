@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <title>slowed &amp; reverb — vinyl record</title>
+  <rect x=".375" y=".375" width="15.25" height="15.25" rx="3.625" fill="#211b23" stroke="#715865" stroke-width=".75"/>
+  <circle cx="8" cy="8" r="5.25" fill="none" stroke="#efb48b" stroke-width="1.5"/>
+  <circle cx="8" cy="8" r="2.5" fill="#efb48b"/>
+  <circle cx="8" cy="8" r=".875" fill="#211b23"/>
+</svg>
