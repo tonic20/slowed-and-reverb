@@ -17,6 +17,9 @@ for (const p of root.querySelectorAll('.ag-product')) {
 }
 let state = { ...defaults },
   session = {},
+  initializing = true,
+  popupTab = null,
+  refreshing = false,
   busy = true,
   dirty = false,
   exportOpen = false,
@@ -148,9 +151,16 @@ function render() {
     connected = session.mode === 'browser' && session.tabId != null;
   const file = session.file,
     playing = fileMode ? session.mode === 'file' && session.playing : connected && session.playing;
+  const empty =
+    !fileMode &&
+    (session.connection === 'unavailable' || (session.connection === 'waiting' && !connected && !session.failure));
+  if (empty) settingsOpen = false;
   for (const p of root.querySelectorAll('.ag-product')) {
     for (const el of p.querySelectorAll('button,input,select')) el.disabled = busy;
-    p.querySelector('.ag-content').hidden = settingsOpen;
+    p.querySelector('.ag-header-actions').hidden = initializing || empty;
+    p.querySelector('.ag-empty').hidden = initializing || !empty;
+    p.querySelector('.ag-empty-error').textContent = isError ? notice : '';
+    p.querySelector('.ag-content').hidden = initializing || empty || settingsOpen;
     p.querySelector('.ag-settings-panel').hidden = !settingsOpen;
     p.querySelector('.ag-settings').setAttribute('aria-expanded', String(settingsOpen));
     p.querySelector('.ag-settings').setAttribute('aria-label', settingsOpen ? 'Close settings' : 'Settings');
@@ -187,9 +197,7 @@ function render() {
           : ''
       : connected
         ? ''
-        : session.connection === 'waiting'
-          ? 'Waiting for a player on this tab'
-          : 'Connect to the selected tab';
+        : 'Connect to the selected tab';
     meta.hidden = !meta.textContent;
     p.querySelector('.ag-file-row .ag-choose').hidden = !fileMode;
     p.querySelector('[data-disconnect]').hidden = fileMode || !connected;
@@ -226,6 +234,7 @@ function render() {
     ratingWidget.hidden = !showRating || !!session.failure || isError || exportOpen;
     p.querySelector('.ag-export-options').setAttribute('aria-expanded', String(exportOpen));
     p.querySelector('.ag-export-options-panel').hidden = !exportOpen;
+    p.querySelector('.ag-export-format').hidden = !exportOpen;
     p.querySelector('.ag-download').disabled = busy || !file;
     p.querySelector('.ag-demo-credit').hidden = !fileMode || !file?.demo;
     p.querySelector('.ag-power').setAttribute('aria-pressed', String(state.active));
@@ -273,10 +282,7 @@ function render() {
     const feedback = p.querySelector('.ag-feedback');
     feedback.textContent = session.failure
       ? session.failure.message || 'Audio processing stopped.'
-      : notice ||
-        (!fileMode && session.connection === 'waiting'
-          ? 'Start music on this tab, then reopen the extension to connect.'
-          : '');
+      : notice;
     feedback.classList.toggle('is-error', isError || !!session.failure);
     p.querySelector('[data-retry]').hidden = !session.failure;
     if (session.failure) p.querySelector('[data-status]').textContent = 'Effect unavailable';
@@ -414,9 +420,11 @@ for (const area of root.querySelectorAll('.ag-file-area')) {
   });
 }
 async function refresh() {
-  if (busy || dirty) return;
+  if (busy || dirty || refreshing) return;
+  refreshing = true;
   try {
-    const value = await send('STATUS');
+    const waitingTab = session.connection === 'waiting' && !document.hidden ? popupTab : null;
+    const value = await send('STATUS', { waitingTab });
     if (!busy && !dirty) {
       adopt(value);
       render();
@@ -427,6 +435,8 @@ async function refresh() {
       isError = true;
       render();
     }
+  } finally {
+    refreshing = false;
   }
 }
 render();
@@ -439,10 +449,12 @@ try {
   const { rating } = await chrome.storage.local.get('rating');
   showRating = ratingPreview || shouldAsk(normalizeRating(rating), ratingLinks);
   adopt(await send(popup ? 'OPEN' : 'STATUS'));
+  if (popup) popupTab = session.targetTab;
 } catch (error) {
   notice = error.message;
   isError = true;
 } finally {
+  initializing = false;
   busy = false;
   render();
 }

@@ -5,6 +5,7 @@ export function registerMediaController() {
   globalThis.__slowedReverbController = true;
   let current = null,
     desired = null,
+    lastScan = -Infinity,
     correctionTimer;
   const originals = new Map(),
     known = new Set(),
@@ -115,6 +116,7 @@ export function registerMediaController() {
     }
   }
   function scan() {
+    lastScan = performance.now();
     const walk = (root) => {
       for (const node of root.querySelectorAll('*')) {
         if (node.matches('audio,video')) remember(node);
@@ -199,6 +201,12 @@ export function registerMediaController() {
     if (sender.id !== chrome.runtime.id || message?.target !== 'media') return;
     (async () => {
       try {
+        if (message.command === 'HAS_PLAYER') {
+          // Discovery reports added media between scans. Also revisit closed shadow roots.
+          if (performance.now() - lastScan >= 5000) scan();
+          respond({ ok: true, value: !!select() });
+          return;
+        }
         if (message.command === 'APPLY') apply(message.settings);
         else if (message.command === 'RESTORE') restore();
         else if (message.command === 'PLAY') {

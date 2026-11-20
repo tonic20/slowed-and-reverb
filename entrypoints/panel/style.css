@@ -197,7 +197,18 @@ html.is-toolbar-popup #ag-concept .ag-popup .ag-toggle-row,html.is-toolbar-popup
 html.is-toolbar-popup #ag-concept .ag-popup .ag-rule{display:none}
 html.is-toolbar-popup #ag-concept .ag-popup .ag-compare button{padding-top:8px;padding-bottom:8px}
 html.is-toolbar-popup #ag-concept .ag-popup .ag-mini-status{margin:8px 0 0}
-html.is-toolbar-popup #ag-concept .ag-popup .ag-file-export{margin:8px 0 0}
+html.is-toolbar-popup #ag-concept .ag-popup .ag-file-export{margin:8px 0}
+html.is-toolbar-popup #ag-concept .ag-export-options-panel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  padding: 6px 0 0;
+}
+html.is-toolbar-popup #ag-concept .ag-export-options-panel .ag-toggle-row {
+  gap: 6px;
+  min-height: 28px;
+  margin: 0;
+}
 html.is-toolbar-popup #ag-concept .ag-popup .ag-demo-credit{margin:8px 0 0}
 #ag-concept .ag-rating{display:flex;align-items:center;justify-content:center;gap:12px;border-top:1px solid var(--ag-line);margin-top:6px;padding-top:2px;color:var(--ag-muted);font-size:11px}
 #ag-concept .ag-rating-stars{display:flex;gap:2px}
@@ -244,6 +255,27 @@ html.is-toolbar-popup #ag-concept .ag-popup .ag-demo-credit{margin:8px 0 0}
   line-height: 1.5;
 }
 #ag-concept .ag-settings-feedback:empty {
+  display: none;
+}
+#ag-concept .ag-empty {
+  padding: 24px var(--ag-gutter);
+}
+#ag-concept .ag-empty h1 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: -.4px;
+}
+#ag-concept .ag-empty p {
+  margin: 6px 0 18px;
+  line-height: 1.5;
+  color: var(--ag-muted);
+}
+#ag-concept .ag-empty .ag-empty-error {
+  margin: 10px 0 0;
+  color: #ffb9a7;
+}
+#ag-concept .ag-empty-error:empty {
   display: none;
 }
 #ag-concept .ag-settings[aria-expanded=true] {

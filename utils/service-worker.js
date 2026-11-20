@@ -94,13 +94,31 @@ async function run(message) {
   if (message.command === 'OPEN') {
     // A popup replaces onClicked: the toolbar click has already granted activeTab.
     const [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
-    if (tab?.id != null && !tab.url?.startsWith(chrome.runtime.getURL('')))
-      await chrome.storage.session.set({ targetTab: tab.id, targetTitle: tab.title || 'Browser tab' });
-    if (tab?.id != null && /^https?:/.test(tab.url || '') && (await storedSettings()).source === 'browser')
+    const webTab = /^https?:/.test(tab?.url || '');
+    await chrome.storage.session.set({
+      targetTab: tab?.id ?? null,
+      targetTitle: tab?.title || 'Browser tab',
+      connection: webTab ? null : 'unavailable',
+    });
+    if (webTab && (await storedSettings()).source === 'browser')
       return run({ command: 'CONNECT', automatic: true });
     return status();
   }
-  if (message.command === 'STATUS') return status();
+  if (message.command === 'STATUS') {
+    const current = await status();
+    if (
+      message.waitingTab != null &&
+      message.waitingTab === current.targetTab &&
+      current.settings.source === 'browser' &&
+      current.connection === 'waiting' &&
+      !current.failure
+    ) {
+      // A replaced document loses its controller. CONNECT reinstalls it on the selected tab.
+      if (await media(current.targetTab, 'HAS_PLAYER').catch(() => true))
+        return run({ command: 'CONNECT', automatic: true });
+    }
+    return current;
+  }
   if (message.command === 'UPDATE') {
     const previous = await storedSettings(),
       settings = normalize({ ...previous, ...message.settings });
@@ -144,7 +162,7 @@ async function run(message) {
           await media(targetTab, 'APPLY', { settings: effective(settings) });
           break;
         } catch (error) {
-          if (error.code !== 'NO_MEDIA' || attempt >= 10) throw error;
+          if (message.automatic || error.code !== 'NO_MEDIA' || attempt >= 10) throw error;
           await new Promise((resolve) => setTimeout(resolve, 150));
         }
       }
@@ -157,21 +175,24 @@ async function run(message) {
       await chrome.action.setBadgeBackgroundColor({ color: '#9c573c' });
       return status();
     } catch (error) {
-      const waiting = message.automatic && error.code === 'NO_MEDIA';
-      if (waiting) {
+      const unavailable = /Cannot access|extensions gallery cannot be scripted/i.test(error.message);
+      const noPlayer = message.automatic && (error.code === 'NO_MEDIA' || unavailable);
+      if (noPlayer) {
         await chrome.storage.session.remove('audioError');
-        await chrome.storage.session.set({ connection: 'waiting' });
-      } else
+        await chrome.storage.session.set({ connection: unavailable ? 'unavailable' : 'waiting' });
+      } else {
+        await chrome.storage.session.remove('connection');
         await chrome.storage.session.set({
           audioError: { source: 'browser', tabId: targetTab, message: error.message },
         });
+      }
       try {
         await media(targetTab, 'RESTORE');
       } catch {
         /* No controller on restricted pages. */
       }
       await disconnect();
-      if (waiting) return status();
+      if (noPlayer) return status();
       throw Error(
         error.message.includes('Cannot access')
           ? 'Chrome cannot process this page. Open a normal music tab and click the extension icon there.'
@@ -211,6 +232,8 @@ async function run(message) {
     const settings = await storedSettings();
     await audio('UPDATE', { settings });
     await audio('LOAD', { demo: message.demo, pending: message.pending });
+    if (message.pending && settings.source !== 'file')
+      await chrome.storage.local.set({ settings: { ...settings, source: 'file' } });
     return status();
   }
   if (message.command === 'REMOVE') {

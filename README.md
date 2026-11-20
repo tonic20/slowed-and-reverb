@@ -2,7 +2,7 @@
 
 Chrome extension for changing playback speed and adding reverb to browser tabs and local audio files. Rubber Band R3 is the default audio engine. Signalsmith is available for lower CPU use. Local recordings can be exported as WAV.
 
-## Build version 0.9.0
+## Build version 0.9.1
 
 Install Node.js 24 or newer, then run the following commands.
 
@@ -16,7 +16,7 @@ npm run zip
 
 Load `.output/chrome-mv3` using Chrome’s Load unpacked command. The ZIP in `.output` is the store package.
 
-The `v0.9.0` tag identifies the source for the Chrome Web Store release. Runtime code is in `entrypoints`, `utils` and `public`. The repository includes build configuration, unit tests, icon sources and third-party source archives.
+The `v0.9.1` tag identifies the source for the Chrome Web Store release. Runtime code is in `entrypoints`, `utils` and `public`. The repository includes build configuration, unit tests, icon sources and third-party source archives.
 
 ## Licensing and corresponding source
 

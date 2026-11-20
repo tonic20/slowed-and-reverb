@@ -2,7 +2,7 @@
   "name": "slowed-and-reverb",
   "description": "Create a slowed and reverb mix with a music speed changer. Slow down a song, keep its original pitch and export local audio to WAV.",
   "private": true,
-  "version": "0.9.0",
+  "version": "0.9.1",
   "type": "module",
   "engines": {
     "node": ">=24"
